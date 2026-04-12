@@ -40,6 +40,7 @@ if [ $? -ne 0 ]; then
     Validate $? "creating user"
 else
     echo "roboshop already exist"
+fi 
 
 mkdir -p /app
 Validate $? "creating app directory"
