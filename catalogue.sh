@@ -36,7 +36,7 @@ Validate $? "installing nodejs"
 
 id roboshop &>>$log_file
 if [ $? -ne 0 ]; then
-    useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop
+    useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop &>>$log_file 
     Validate $? "creating user"
 else
     echo "roboshop already exist"
@@ -45,7 +45,7 @@ fi
 mkdir -p /app
 Validate $? "creating app directory"
 
-curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip 
+curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip &>>$log_file 
 Validate $? "downloading catalogue code"
 
 cd /app
