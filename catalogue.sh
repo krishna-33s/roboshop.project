@@ -76,7 +76,7 @@ INDEX=$(mongosh --host $mongo_ip --quiet  --eval 'db.getMongo().getDBNames().ind
 
 if [ $INDEX -le 0 ]; then
     mongosh --host $mongo_ip </app/db/master-data.js
-    VALIDATE $? "Loading products"
+    Validate $? "Loading products"
 else
     echo  "Products already loaded ... SKIPPING"
 fi
