@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 user_id=$(id -u)
 log_folder="/var/log/roboshop.project"
