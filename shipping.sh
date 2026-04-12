@@ -14,7 +14,7 @@ if [ $user_id -ne 0 ]; then
 
 fi
 
-mkdir -p $log_file
+mkdir -p $log_folder
 
 Validate(){
     if [ $1 -ne 0 ]; then
