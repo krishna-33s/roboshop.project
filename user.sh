@@ -53,7 +53,7 @@ Validate $? "moving to app directory"
 rm -rf /app/*
 Validate $? "removing default content"
 
-unzip /tmp/user. &>>$log_file
+unzip /tmp/user.zip &>>$log_file
 Validate $? "unzip user code"
 
 npm install &>>$log_file
