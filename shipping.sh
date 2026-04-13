@@ -64,13 +64,15 @@ Validate $? "Created systemctl service"
 dnf install mysql -y  &>>$log_file
 Validate $? "Installing MySQL"
 
-mysql -h $mysql_ip -uroot -pRoboShop@1 -e 'cities'
+mysql -h $mysql_ip -uroot -pRoboShop@1 -e "show databases like 'cities'"
 if [ $? -ne 0 ]; then
 
     mysql -h $mysql_ip -uroot -pRoboShop@1 < /app/db/schema.sql &>>$log_file
+    Validate $? "Loaded schema into MySQL"
     mysql -h $mysql_ip -uroot -pRoboShop@1 < /app/db/app-user.sql &>>$log_file
+    Validate $? "Loaded user into MySQL"
     mysql -h $mysql_ip -uroot -pRoboShop@1 < /app/db/master-data.sql &>>$log_file
-    Validate $? "Loaded data into MySQL"
+    Validate $? "Loaded master.data into MySQL"
 else
     echo  "data is already loaded ...  SKIPPING"
 fi
@@ -78,59 +80,4 @@ fi
 systemctl enable shipping &>>$log_file
 systemctl start shipping
 Validate $? "Enabled and started shipping"
-
-
-# dnf install maven -y &>>$log_file
-# Validate $? "installing maven"
-
-# id roboshop &>>$log_file
-# if [ $? -ne 0 ]; then 
-#     useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop &>>$log_file
-#     Validate $? "creating user"
-# else 
-#     echo "already user created"
-# fi
-
-# mkdir -p /app &>>$log_file
-# Validate $? "creating app directory"
-
-# curl -L -o /tmp/shipping.zip https://roboshop-artifacts.s3.amazonaws.com/shipping-v3.zip &>>$log_file
-# Validate $? "shipping code"
-
-# cd /app
-# Validate $? "adding to app directory"
-
-# rm -rf /app/*
-# Validate $? "Removing existing code"
-
-# unzip /tmp/shipping.zip &>>$log_file
-# Validate $? "unzipping"
-
-# cd /app 
-# mvn clean package &>>$log_file
-# Validate $? "installing and building shipping"
-
-# mv target/shipping-1.0.jar shipping.jar 
-# Validate $? "moving shipping"
-
-# cp $current_path/shipping.service /etc/systemd/system/shipping.service &>>$log_file
-# Validate $? "systemctl shipping"
-
-# systemctl daemon-reload
-
-# dnf install mysql -y &>>$log_file
-# Validate $? "installing mysql"
-
-# if [ $? -ne 0 ]; then 
-#     mysql -h $mysql_ip -uroot -pRoboShop@1 < /app/db/schema.sql &>>$log_file
-#     mysql -h $mysql_ip -uroot -pRoboShop@1 < /app/db/app-user.sql &>>$log_file
-#     mysql -h $mysql_ip -uroot -pRoboShop@1 < /app/db/master-data.sql &>>$log_file
-#     Validate $? "loading data into mysql"
-# else
-#     echo "already mysql installed"
-# fi
-
-# systemctl enable shipping &>>$log_file
-# systemctl start shipping
-# Validate $? "enabing and starting"
 
