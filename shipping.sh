@@ -64,7 +64,7 @@ Validate $? "Created systemctl service"
 dnf install mysql -y  &>>$log_file
 Validate $? "Installing MySQL"
 
-mysql -h $mysql_ip -uroot -pRoboShop@1 -e 'use cities'
+mysql -h $mysql_ip -uroot -pRoboShop@1 -e 'cities'
 if [ $? -ne 0 ]; then
 
     mysql -h $mysql_ip -uroot -pRoboShop@1 < /app/db/schema.sql &>>$log_file
