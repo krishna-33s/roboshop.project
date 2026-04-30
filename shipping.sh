@@ -18,7 +18,7 @@ mkdir -p $log_folder
 
 Validate(){
     if [ $1 -ne 0 ]; then
-        echo "$2...failed" | tee -a $le
+        echo "$2...failed" | tee -a $log_file
         exit 1
     else
         echo "$2...success" | tee -a $log_file
